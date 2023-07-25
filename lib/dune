@@ -1,5 +1,5 @@
 (library
- (libraries core curl file_path ocamlgraph lambdasoup uri)
+ (libraries core curl file_path ocamlgraph lambdasoup uri cohttp-async)
  (preprocess
   (pps ppx_jane))
  (inline_tests)
