@@ -98,11 +98,10 @@ let create game =
       planet, x, y)
   in
   create_graph ~graph ~nodes ~distance:1.0;
-  Dot.output_graph (Out_channel.create "/map.dot") graph;
-  printf !"Done! Wrote dot file to %{File_path}\n%!"
+  Dot.output_graph (Out_channel.create "/map.dot") graph
 ;;
 
-let test =
+let%expect_test "graph" =
   let island =
     { Island.name = "hawaii"
     ; position = 0, 0
@@ -131,5 +130,10 @@ let test =
     ; difficulty = Level.Easy
     }
   in
-  create game
+  create game;
+  let connected = true in
+  G.iter_vertex (fun vertex ->
+    if G.out_degree graph vertex = 0 then connected = false);
+  print_s [%message (connected : bool)];
+  [%expect true]
 ;;
