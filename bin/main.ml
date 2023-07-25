@@ -14,6 +14,5 @@ let command =
    let contents = File_fetcher.fetch_exn how_to_fetch ~resource in List.iter
    (get_credits contents) ~f:print_endline] *)
 
-module _ = Cohttp_async
-
+let _ = Cohttp_async.Client.get
 let () = Command_unix.run command
