@@ -18,7 +18,7 @@ module G = Graph.Imperative.Graph.Concrete (String)
 module Dot = Graph.Graphviz.Dot (struct
   include G
 
-  let edge_attributes _ = [ `Dir `Forward ]
+  let edge_attributes _ = [ `Dir `Both ]
   let default_edge_attributes _ = []
   let get_subgraph _ = None
   let vertex_attributes v = [ `Shape `Box; `Label v; `Fillcolor 1000 ]
@@ -98,8 +98,12 @@ let create game =
       planet, x, y)
   in
   create_graph ~graph ~nodes ~distance:1.0;
-  Dot.output_graph (Out_channel.create "/map.dot") graph
+  Dot.output_graph (Out_channel.create "/map.dot") graph;
+  graph
 ;;
+
+(* Functions needed: - When player answers question, check answer, update
+   score, and move players forward in map - Island color update *)
 
 let%expect_test "graph" =
   let island =
@@ -130,10 +134,9 @@ let%expect_test "graph" =
     ; difficulty = Level.Easy
     }
   in
-  create game;
-  let connected = true in
-  G.iter_vertex (fun vertex ->
-    if G.out_degree graph vertex = 0 then connected = false);
-  print_s [%sexp (connected : bool)];
-  [%expect true]
+  let graph = create game in
+  G.iter_vertex
+    (fun vertex -> print_s [%sexp (G.out_degree graph vertex > 0 : bool)])
+    graph;
+  [%expect {| true true true true |}]
 ;;
