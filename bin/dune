@@ -1,4 +1,6 @@
 (executable
  (public_name jeopardy_island)
  (name main)
- (libraries jeopardy_island))
+ (libraries jeopardy_island core_unix.command_unix async)
+ (preprocess
+  (pps ppx_jane)))
