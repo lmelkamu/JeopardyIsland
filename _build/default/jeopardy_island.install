@@ -1,8 +1,0 @@
-lib: [
-  "_build/install/default/lib/jeopardy_island/META"
-  "_build/install/default/lib/jeopardy_island/dune-package"
-  "_build/install/default/lib/jeopardy_island/opam"
-]
-bin: [
-  "_build/install/default/bin/jeopardy_island"
-]

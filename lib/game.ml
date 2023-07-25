@@ -134,6 +134,6 @@ let%expect_test "graph" =
   let connected = true in
   G.iter_vertex (fun vertex ->
     if G.out_degree graph vertex = 0 then connected = false);
-  print_s [%message (connected : bool)];
+  print_s [%sexp (connected : bool)];
   [%expect true]
 ;;
