@@ -6,6 +6,17 @@ open! Cohttp_async
 
 (* things we need to get set up: pull from an API ORRRR, we need a sufficient
    question bank with quetsions and plausible answers *)
-(* let get_questions number : string list =
+let get_questions number =
+  let response =
+    Cohttp_async.Client.get
+      (Uri.of_string
+         (String.append
+            "https://opentdb.com/api.php?amount="
+            (Int.to_string number)))
+  in
+  print_s
+    [%message
+      (response : (Cohttp.Response.t * Body.t) Async_kernel.Deferred.t)]
+;;
 
-   let _ = Cohttp_async.Client.get *)
+get_questions 1
