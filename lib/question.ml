@@ -28,7 +28,6 @@ let question_command =
        the highway network"
     [%map_open
       let response = get_questions 1 in 
-      
 
       in
       fun () ->
