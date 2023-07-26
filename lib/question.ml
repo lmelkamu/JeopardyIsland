@@ -14,9 +14,24 @@ let get_questions number =
             "https://opentdb.com/api.php?amount="
             (Int.to_string number)))
   in
-  print_s
-    [%message
-      (response : (Cohttp.Response.t * Body.t) Async_kernel.Deferred.t)]
+  Async_kernel.Deferred.
 ;;
 
 get_questions 1
+
+
+let question_command =
+  let open Command.Let_syntax in
+  Command.basic
+    ~summary:
+      "parse a file listing interstates and generate a graph visualizing \
+       the highway network"
+    [%map_open
+      let response = get_questions 1 in 
+      
+
+      in
+      fun () ->
+        visualize ~max_depth ~origin ~output_file ~how_to_fetch ();
+        printf !"Done! Wrote dot file to %{File_path}\n%!" output_file]
+;;
