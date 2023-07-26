@@ -1,15 +1,22 @@
 open! Core
 
-module Game_state = struct
-  type t = Game_continues of Island.t
-  (* | Game_over of Player.t *)
-end
+(* module Game_state = struct type t = Game_continues of Island.t | Game_over
+   of Player.t end *)
 
 module Level = struct
-  type t =
-    | Easy
-    | Medium
-    | Hard
+  module T = struct
+    type t =
+      | Easy
+      | Medium
+      | Hard
+    [@@deriving enumerate, sexp]
+
+    let to_string t = Sexp.to_string (sexp_of_t t)
+  end
+
+  include T
+
+  let arg : t Command.Arg_type.t = Command.Arg_type.enumerated (module T)
 end
 
 module G = Graph.Imperative.Graph.Concrete (String)
@@ -27,10 +34,9 @@ module Dot = Graph.Graphviz.Dot (struct
 end)
 
 type t =
-  { player_one : Player.t
-  ; player_two : Player.t
-  ; game_state : Game_state.t
-  ; difficulty : Level.t
+  { (*player_one : Player.t ; player_two : Player.t ; game_state :
+      Game_state.t *)
+    difficulty : Level.t
   }
 
 let rec create_graph ~graph ~nodes ~(distance : float) =
@@ -97,7 +103,7 @@ let create game =
       planet, x, y)
   in
   create_graph ~graph ~nodes ~distance:1.0;
-  Dot.output_graph (Out_channel.create "/map.dot") graph
+  Dot.output_graph (Out_channel.create "map.dot") graph
 ;;
 
 (* Functions needed: - When player answers question, check answer, update
@@ -106,35 +112,16 @@ let create game =
 let game_command =
   let open Command.Let_syntax in
   Command.basic
+    ~summary:"Run game"
     [%map_open
-      let level = flag "level" (required Level.t) ~doc:"how hard game is" in
+      let level =
+        flag "level" (required Level.arg) ~doc:"how hard game is"
+      in
       fun () ->
-        let island =
-          { Island.name = "hawaii"
-          ; position = 0, 0
-          ; question = "hello"
-          ; color = 0, 0, 0
-          }
-        in
-        let player_one =
-          { Player.name = "Bob"
-          ; points = 0
-          ; curr_island = island
-          ; upgrades = Player.Upgrade.Double_points
-          }
-        in
-        let player_two =
-          { Player.name = "Sarah"
-          ; points = 0
-          ; curr_island = island
-          ; upgrades = Player.Upgrade.Two_chances
-          }
-        in
         let game =
-          { player_one
-          ; player_two
-          ; game_state = Game_state.Game_continues island
-          ; difficulty = level
+          { (* player_one ; player_two ( ; game_state =
+               Game_state.Game_continues island *)
+            difficulty = level
           }
         in
         create game]
