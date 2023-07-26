@@ -4,8 +4,8 @@ open! Async
 let command =
   Command.async
     ~summary:
-      "given an IMDB page for an actor, print out a list of their main \
-       credits"
+      "given a website that generates questions, GET a question and the 4 \
+       associated answer choices"
     (let%map_open.Command () = return () in
      fun () -> return ())
 ;;
