@@ -103,7 +103,7 @@ let create game =
       planet, x, y)
   in
   create_graph ~graph ~nodes ~distance:1.0;
-  Dot.output_graph (Out_channel.create "/map.dot") graph
+  Dot.output_graph (Out_channel.create "map.dot") graph
 ;;
 
 (* Functions needed: - When player answers question, check answer, update

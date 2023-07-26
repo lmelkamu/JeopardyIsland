@@ -1,0 +1,65 @@
+digraph G {
+  Eris [fillcolor="#0003E8", label="Eris", shape=box, ];
+  Neptune [fillcolor="#0003E8", label="Neptune", shape=box, ];
+  Mercury [fillcolor="#0003E8", label="Mercury", shape=box, ];
+  Uranus [fillcolor="#0003E8", label="Uranus", shape=box, ];
+  Ganymede [fillcolor="#0003E8", label="Ganymede", shape=box, ];
+  Rhea [fillcolor="#0003E8", label="Rhea", shape=box, ];
+  Titan [fillcolor="#0003E8", label="Titan", shape=box, ];
+  Moon [fillcolor="#0003E8", label="Moon", shape=box, ];
+  Sun [fillcolor="#0003E8", label="Sun", shape=box, ];
+  Oberon [fillcolor="#0003E8", label="Oberon", shape=box, ];
+  Venus [fillcolor="#0003E8", label="Venus", shape=box, ];
+  Titania [fillcolor="#0003E8", label="Titania", shape=box, ];
+  Jupiter [fillcolor="#0003E8", label="Jupiter", shape=box, ];
+  Europa [fillcolor="#0003E8", label="Europa", shape=box, ];
+  Callisto [fillcolor="#0003E8", label="Callisto", shape=box, ];
+  Pluto [fillcolor="#0003E8", label="Pluto", shape=box, ];
+  Mars [fillcolor="#0003E8", label="Mars", shape=box, ];
+  Io [fillcolor="#0003E8", label="Io", shape=box, ];
+  Triton [fillcolor="#0003E8", label="Triton", shape=box, ];
+  
+  
+  Eris -> Callisto [dir=both, ];
+  Neptune -> Europa [dir=both, ];
+  Neptune -> Moon [dir=both, ];
+  Mercury -> Jupiter [dir=both, ];
+  Mercury -> Mars [dir=both, ];
+  Uranus -> Callisto [dir=both, ];
+  Uranus -> Eris [dir=both, ];
+  Uranus -> Io [dir=both, ];
+  Uranus -> Triton [dir=both, ];
+  Rhea -> Mars [dir=both, ];
+  Rhea -> Mercury [dir=both, ];
+  Rhea -> Pluto [dir=both, ];
+  Titan -> Europa [dir=both, ];
+  Sun -> Ganymede [dir=both, ];
+  Sun -> Mercury [dir=both, ];
+  Sun -> Oberon [dir=both, ];
+  Oberon -> Ganymede [dir=both, ];
+  Oberon -> Jupiter [dir=both, ];
+  Oberon -> Mercury [dir=both, ];
+  Venus -> Ganymede [dir=both, ];
+  Venus -> Jupiter [dir=both, ];
+  Venus -> Mercury [dir=both, ];
+  Venus -> Oberon [dir=both, ];
+  Venus -> Sun [dir=both, ];
+  Venus -> Titania [dir=both, ];
+  Titania -> Jupiter [dir=both, ];
+  Titania -> Mercury [dir=both, ];
+  Titania -> Oberon [dir=both, ];
+  Titania -> Sun [dir=both, ];
+  Pluto -> Eris [dir=both, ];
+  Pluto -> Jupiter [dir=both, ];
+  Pluto -> Mars [dir=both, ];
+  Pluto -> Mercury [dir=both, ];
+  Mars -> Eris [dir=both, ];
+  Io -> Callisto [dir=both, ];
+  Io -> Eris [dir=both, ];
+  Triton -> Callisto [dir=both, ];
+  Triton -> Eris [dir=both, ];
+  Triton -> Io [dir=both, ];
+  Triton -> Mars [dir=both, ];
+  Triton -> Pluto [dir=both, ];
+  
+  }
