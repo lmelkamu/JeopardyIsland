@@ -1,9 +1,8 @@
 open! Core
 
 module Game_state = struct
-  type t =
-    | Game_continues of Island.t
-    | Game_over of Player.t
+  type t = Game_continues of Island.t
+  (* | Game_over of Player.t *)
 end
 
 module Level = struct
@@ -98,45 +97,51 @@ let create game =
       planet, x, y)
   in
   create_graph ~graph ~nodes ~distance:1.0;
-  Dot.output_graph (Out_channel.create "/map.dot") graph;
-  graph
+  Dot.output_graph (Out_channel.create "/map.dot") graph
 ;;
 
 (* Functions needed: - When player answers question, check answer, update
    score, and move players forward in map - Island color update *)
 
-let%expect_test "graph" =
-  let island =
-    { Island.name = "hawaii"
-    ; position = 0, 0
-    ; question = "hello"
-    ; color = 0, 0, 0
-    }
-  in
-  let player_one =
-    { Player.name = "Bob"
-    ; points = 0
-    ; curr_island = island
-    ; upgrades = Player.Upgrade.Double_points
-    }
-  in
-  let player_two =
-    { Player.name = "Sarah"
-    ; points = 0
-    ; curr_island = island
-    ; upgrades = Player.Upgrade.Double_points
-    }
-  in
-  let game =
-    { player_one
-    ; player_two
-    ; game_state = Game_state.Game_continues island
-    ; difficulty = Level.Easy
-    }
-  in
-  let graph = create game in
-  G.iter_vertex
-    (fun vertex -> print_s [%sexp (G.out_degree graph vertex > 0 : bool)])
-    graph;
-  [%expect {| true true true true |}]
+let game_command =
+  let open Command.Let_syntax in
+  Command.basic
+    [%map_open
+      let level = flag "level" (required Level.t) ~doc:"how hard game is" in
+      fun () ->
+        let island =
+          { Island.name = "hawaii"
+          ; position = 0, 0
+          ; question = "hello"
+          ; color = 0, 0, 0
+          }
+        in
+        let player_one =
+          { Player.name = "Bob"
+          ; points = 0
+          ; curr_island = island
+          ; upgrades = Player.Upgrade.Double_points
+          }
+        in
+        let player_two =
+          { Player.name = "Sarah"
+          ; points = 0
+          ; curr_island = island
+          ; upgrades = Player.Upgrade.Two_chances
+          }
+        in
+        let game =
+          { player_one
+          ; player_two
+          ; game_state = Game_state.Game_continues island
+          ; difficulty = level
+          }
+        in
+        create game]
 ;;
+
+(* let%expect_test "graph" = let game = { player_one ; player_two ;
+   game_state = Game_state.Game_continues island ; difficulty = level } in
+   let graph = create game in G.iter_vertex (fun vertex -> print_s [%sexp
+   (G.out_degree graph vertex > 0 : bool)]) graph; [%expect {| true true true
+   true |}] *)

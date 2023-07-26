@@ -11,5 +11,5 @@ type t =
   { name : string
   ; points : int
   ; curr_island : Island.t
-  ; mutable upgrades : Upgrade.t
+  ; upgrades : Upgrade.t
   }
