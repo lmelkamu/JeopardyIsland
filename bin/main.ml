@@ -13,5 +13,4 @@ let command =
     ]
 ;;
 
-let _ = Cohttp_async.Client.get
-(* let () = Command_unix.run Jeopardy_island.Game.game_command *)
+let () = Command_unix.run command
