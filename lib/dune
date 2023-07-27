@@ -8,8 +8,8 @@
   uri
   cohttp-async
   ppxlib
-  ppx_jsonaf_conv_expander)
+  jsonaf)
  (preprocess
-  (pps ppx_jane))
+  (pps ppx_jane ppx_jsonaf_conv))
  (inline_tests)
  (name jeopardy_island))

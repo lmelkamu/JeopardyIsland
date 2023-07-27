@@ -1,7 +1,7 @@
 open! Core
 open! Async
 open! Cohttp_async
-open! Jsonaf
+open! Jsonaf.Export
 open! Ppxlib
 
 module Question = struct
@@ -36,8 +36,9 @@ let%expect_test _ =
   let json = Jsonaf.parse json_str |> Or_error.ok_exn in
   let questions = t_of_jsonaf json in
   print_s [%message (questions : t)];
-  [%expect
-    {|
+  return
+    [%expect
+      {|
     (questions
      ((results
        (((question "What is the currency of Poland?")
